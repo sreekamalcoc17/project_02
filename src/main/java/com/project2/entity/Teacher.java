@@ -30,10 +30,7 @@ public class Teacher {
 	private String lastName;
 	private String email;
 	private long phno;
-	//private String course;
+	private String course;
 	private String pass;
 	
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "teacher")
-	private Course course;
 }

@@ -34,8 +34,6 @@ public class Student {
 	private long phno;
 	private int grade;
 	private String pass;
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
-	private List<Course> courses = new ArrayList<>();
+	private String course;
 
 }
