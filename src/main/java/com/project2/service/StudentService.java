@@ -12,7 +12,8 @@ import com.project2.repository.StudentRepository;
 public class StudentService {
 	@Autowired
     private StudentRepository repository;
-
+	
+	
     public Student saveStudent(Student student) {
         return repository.save(student);
     }
@@ -44,7 +45,7 @@ public class StudentService {
         existingStudent.setEmail(student.getEmail());
         existingStudent.setPhno(student.getPhno());
         existingStudent.setGrade(student.getGrade());
-        existingStudent.setCourse(student.getCourse());
+        //existingStudent.setCourse(student.getCourse());
         existingStudent.setPass(student.getPass());
 
         return repository.save(existingStudent);
