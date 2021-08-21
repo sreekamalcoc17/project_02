@@ -1,15 +1,15 @@
 package com.project2.entity;
 
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,19 +21,23 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "Teacher_Table")
-public class Teacher {
-	 @Id
+@Table(name = "Course_Table")
+public class Course {
+	private String courses;
+	@Id
 	 @GeneratedValue(strategy = GenerationType.AUTO)
-	private int teacherId;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private long phno;
-	//private String course;
-	private String pass;
+	private int courseId;
 	
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "teacher")
-	private Course course;
+	@ManyToOne
+	@JoinColumn(name = "stuId")
+	private Student student;
+	
+	@OneToOne
+	@JoinColumn(name = "teacherId")
+	private Teacher teacher;
 }
+
+
+
+
+

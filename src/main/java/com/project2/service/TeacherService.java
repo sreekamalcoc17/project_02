@@ -13,8 +13,13 @@ import com.project2.repository.TeacherRepository;
 public class TeacherService {
 	@Autowired
     private TeacherRepository repository;
-
+	
+	@Autowired
+	private EmailService emailService;
+	
     public Teacher saveTeacher(Teacher teacher) {
+    	String message = "hi, your login details are, UserName:  "+teacher.getEmail()+"  Password:  "+teacher.getPass();
+    	emailService.sendSimpleEmail(teacher.getEmail(), message, "your login credentials");
         return repository.save(teacher);
     }
 
