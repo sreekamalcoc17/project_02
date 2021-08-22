@@ -35,5 +35,5 @@ public class Student {
 	private int grade;
 	private String pass;
 	private String course;
-
+	private String url;
 }

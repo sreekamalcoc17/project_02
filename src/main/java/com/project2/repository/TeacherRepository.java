@@ -6,4 +6,5 @@ import com.project2.entity.Teacher;
 
 public interface TeacherRepository extends JpaRepository<Teacher,Integer>{
 	Teacher findByEmail(String email);
+	Teacher findByCourse(String course);
 }

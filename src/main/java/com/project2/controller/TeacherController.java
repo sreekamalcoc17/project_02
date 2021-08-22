@@ -17,6 +17,8 @@ import com.project2.entity.Student;
 import com.project2.entity.Teacher;
 import com.project2.entity.Teacher;
 import com.project2.models.Login;
+import com.project2.models.MeetingUrl;
+import com.project2.service.StudentService;
 import com.project2.service.TeacherService;
 
 @RestController
@@ -25,6 +27,8 @@ public class TeacherController {
 	
 	@Autowired
     private TeacherService service;
+	@Autowired
+	private StudentService stuser;
 
     @PostMapping("/addTeacher")
     public Teacher addTeacher(@RequestBody Teacher teacher) {
@@ -77,6 +81,18 @@ public class TeacherController {
     	else {
     		return null;
     	}
+    }
+    @PostMapping("/meetingURL")
+    public String meetingUrlrequest(@RequestBody MeetingUrl meetingurl) {
+    	Teacher teacher1 = findTeacherById(meetingurl.getTeachID());
+    	teacher1.setUrl(meetingurl.getMeetingURL());
+    	service.updateTeacher(teacher1);
+    	List<Student> stud1 = stuser.getStudentsByCourse(teacher1.getCourse());
+    	for(Student s:stud1) {
+    		s.setUrl(meetingurl.getMeetingURL());
+    		stuser.updateStudent(s);
+    	}
+		return null;
     	
     }
 }

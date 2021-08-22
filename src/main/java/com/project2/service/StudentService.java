@@ -5,23 +5,34 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.project2.entity.Course;
 import com.project2.entity.Student;
-
+import com.project2.entity.Teacher;
+import com.project2.repository.CourseRepository;
 import com.project2.repository.StudentRepository;
+import com.project2.repository.TeacherRepository;
 
 @Service
 public class StudentService {
 	@Autowired
     private StudentRepository repository;
-	
-	
+	@Autowired
+	private TeacherRepository teacherRepository;
+	@Autowired
+    private CourseRepository courserepository;
 	@Autowired
 	private EmailService emailService;
 	
     public Student saveStudent(Student student) {
     	String message = "hi, your login details are, UserName:  "+student.getEmail()+"  Password:  "+student.getPass();
     	emailService.sendSimpleEmail(student.getEmail(), message, "your login credentials");
+    	Teacher teacher = teacherRepository.findByCourse(student.getCourse());
+    	Course course =  new Course();
+    	repository.save(student);
+    	course.setCourseName(student.getCourse());
+    	course.setStudentiId(student.getStuId());
+    	course.setTeacherId(teacher.getTeacherId());
+    	courserepository.save(course);
         return repository.save(student);
     }
 
@@ -38,6 +49,10 @@ public class StudentService {
     }
     public Student getStudentByEmail(String email) {
         return repository.findByEmail(email);
+    }
+    
+    public List<Student> getStudentsByCourse(String course){
+    	return repository.findAllByCourse(course);
     }
 
     public String deleteStudent(int id) {

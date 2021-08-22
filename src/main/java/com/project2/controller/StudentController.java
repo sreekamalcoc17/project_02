@@ -46,7 +46,11 @@ public class StudentController {
     public Student findStudentByEmail(@PathVariable String email) {
         return service.getStudentByEmail(email);
     }
-
+    @GetMapping("/allstudentByCourse/{Course}")
+    public List<Student> findAllStudentByCourse(@PathVariable String course) {
+        return service.getStudentsByCourse(course);
+    }
+    
     @PutMapping("/updateStudent")
     public Student updateStudent(@RequestBody Student student) {
         return service.updateStudent(student);
